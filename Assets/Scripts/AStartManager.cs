@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AStartManager : MonoBehaviour
 {
+
+    public static AStartManager instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public List<Node> GeneratePath(Node start, Node end)
     {
         List<Node> openSet = new List<Node>();
