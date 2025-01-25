@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     public float velocidadMovimiento=10;
     public Rigidbody2D rb;
     public Animator animator;
+    public float tiempoInvencibilidad = 3;
+    public float timer = 0;
+    private bool invencible = false;
+    public float cordura = 7;
     void Start()
     {
         
@@ -49,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetFloat("Vertical", direccion.y);
                 animator.SetFloat("LastHorizontal", direccion.x);
                 animator.SetFloat("LastVertical", direccion.y);
+
+             
             }
             else
             {
@@ -58,6 +64,39 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+    }
+
+    public IEnumerator color()
+    {
+        invencible = true;
+        float duracionCambio = 0.3f;
+        while(timer< tiempoInvencibilidad)
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            yield return new WaitForSeconds(duracionCambio);
+            GetComponent<SpriteRenderer>().color = Color.white;
+            yield return new WaitForSeconds(duracionCambio);
+            timer += 0.3f * 2;
+        }
+        timer = 0;
+        invencible = false;
+        GetComponent<SpriteRenderer>().color = Color.white;
+
+    }
+
+    public bool getInvencibilidad()
+    {
+        return invencible;
+    }
+
+    public float getCordura()
+    {
+        return cordura;
+    }
+
+    public void reducirCordura(float reductorCordura)
+    {
+        this.cordura-= reductorCordura;
     }
 
 
